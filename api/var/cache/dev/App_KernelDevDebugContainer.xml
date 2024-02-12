@@ -393,6 +393,10 @@
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
+    <service id="App\Repository\HoraireRepository" class="App\Repository\HoraireRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
     <service id="App\Repository\VoitureRepository" class="App\Repository\VoitureRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
@@ -3962,7 +3966,7 @@
     <service id="doctrine.orm.configuration" class="Doctrine\ORM\Configuration" abstract="true"/>
     <service id="doctrine.orm.entity_manager.abstract" class="Doctrine\ORM\EntityManager" lazy="true" abstract="true"/>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.EuIjfOO"/>
+      <argument type="service" id=".service_locator.2g5I3Nm"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -5427,6 +5431,8 @@
     <service id=".abstract.instanceof.App\Repository\EmployeRepository" class="App\Repository\EmployeRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\EquipementRepository" class="App\Repository\EquipementRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\EquipementRepository" class="App\Repository\EquipementRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\HoraireRepository" class="App\Repository\HoraireRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\HoraireRepository" class="App\Repository\HoraireRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\VoitureRepository" class="App\Repository\VoitureRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\VoitureRepository" class="App\Repository\VoitureRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".service_locator.bJ.4HC5" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -5963,12 +5969,13 @@
         <argument key="doctrine.orm.listeners.pdo_session_handler_schema_listener" type="service_closure" id="doctrine.orm.listeners.pdo_session_handler_schema_listener"/>
       </argument>
     </service>
-    <service id=".service_locator.EuIjfOO" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.2g5I3Nm" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\CaracteristiqueRepository" type="service_closure" id="App\Repository\CaracteristiqueRepository"/>
         <argument key="App\Repository\EmployeRepository" type="service_closure" id="App\Repository\EmployeRepository"/>
         <argument key="App\Repository\EquipementRepository" type="service_closure" id="App\Repository\EquipementRepository"/>
+        <argument key="App\Repository\HoraireRepository" type="service_closure" id="App\Repository\HoraireRepository"/>
         <argument key="App\Repository\VoitureRepository" type="service_closure" id="App\Repository\VoitureRepository"/>
       </argument>
     </service>
