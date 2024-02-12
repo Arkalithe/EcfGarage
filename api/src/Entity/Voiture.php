@@ -5,6 +5,10 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\VoitureRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Caracteristique;
+use App\Entity\Equipement;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: VoitureRepository::class)]
 #[ApiResource]
@@ -24,11 +28,24 @@ class Voiture
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $path = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $caracteristique = null;
+    #[ORM\ManyToMany(targetEntity: Caracteristique::class)]
+    #[ORM\JoinTable(name: 'voiture_caracteristique')]
+    #[ORM\JoinColumn(name: 'voiture_id', referencedColumnName: 'id')]
+    #[ORM\InverseJoinColumn(name: 'caracteristique_id', referencedColumnName: 'id')]
+    private $caracteristiques;
 
-    #[ORM\Column(length: 255)]
-    private ?string $equipement = null;
+    #[ORM\ManyToMany(targetEntity: Equipement::class)]
+    #[ORM\JoinTable(name: 'voiture_equipement')]
+    #[ORM\JoinColumn(name: 'voiture_id', referencedColumnName: 'id')]
+    #[ORM\InverseJoinColumn(name: 'equipement_id', referencedColumnName: 'id')]
+    private $equipements;
+
+    public function __construct()
+    {
+        $this->caracteristiques = new ArrayCollection();
+        $this->equipements = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -71,26 +88,26 @@ class Voiture
         return $this;
     }
 
-    public function getCaracteristique(): ?string
+    public function getCaracteristique(): Collection
     {
-        return $this->caracteristique;
+        return $this->caracteristiques;
     }
 
-    public function setCaracteristique(string $caracteristique): static
+    public function setCaracteristique(Collection $caracteristique): static
     {
-        $this->caracteristique = $caracteristique;
+        $this->caracteristiques = $caracteristique;
 
         return $this;
     }
 
-    public function getEquipement(): ?string
+    public function getEquipement(): Collection
     {
-        return $this->equipement;
+        return $this->equipements;
     }
 
-    public function setEquipement(string $equipement): static
+    public function setEquipement(Collection $equipement): static
     {
-        $this->equipement = $equipement;
+        $this->equipements = $equipement;
 
         return $this;
     }
