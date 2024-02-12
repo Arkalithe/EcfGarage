@@ -381,6 +381,10 @@
     <service id="App\Entity" class="App\Entity" abstract="true">
       <tag name="container.excluded" source="in &quot;config/services.yaml&quot;"/>
     </service>
+    <service id="App\Repository\AvisRepository" class="App\Repository\AvisRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
     <service id="App\Repository\CaracteristiqueRepository" class="App\Repository\CaracteristiqueRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
@@ -3966,7 +3970,7 @@
     <service id="doctrine.orm.configuration" class="Doctrine\ORM\Configuration" abstract="true"/>
     <service id="doctrine.orm.entity_manager.abstract" class="Doctrine\ORM\EntityManager" lazy="true" abstract="true"/>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.2g5I3Nm"/>
+      <argument type="service" id=".service_locator.tDafg7q"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -5425,6 +5429,8 @@
       <argument type="service" id="api_platform.metadata.resource.metadata_collection_factory.cached"/>
       <argument type="service" id="api_platform.serializer.context_builder.filter"/>
     </service>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\AvisRepository" class="App\Repository\AvisRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\AvisRepository" class="App\Repository\AvisRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CaracteristiqueRepository" class="App\Repository\CaracteristiqueRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\CaracteristiqueRepository" class="App\Repository\CaracteristiqueRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\EmployeRepository" class="App\Repository\EmployeRepository" autowire="true" abstract="true"/>
@@ -5969,9 +5975,10 @@
         <argument key="doctrine.orm.listeners.pdo_session_handler_schema_listener" type="service_closure" id="doctrine.orm.listeners.pdo_session_handler_schema_listener"/>
       </argument>
     </service>
-    <service id=".service_locator.2g5I3Nm" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.tDafg7q" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Repository\AvisRepository" type="service_closure" id="App\Repository\AvisRepository"/>
         <argument key="App\Repository\CaracteristiqueRepository" type="service_closure" id="App\Repository\CaracteristiqueRepository"/>
         <argument key="App\Repository\EmployeRepository" type="service_closure" id="App\Repository\EmployeRepository"/>
         <argument key="App\Repository\EquipementRepository" type="service_closure" id="App\Repository\EquipementRepository"/>
