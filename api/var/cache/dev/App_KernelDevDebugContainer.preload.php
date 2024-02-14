@@ -569,3 +569,8 @@ $classes[] = 'Symfony\Component\WebLink\EventListener\AddLinkHeaderListener';
 $classes[] = 'Symfony\Component\WebLink\HttpHeaderSerializer';
 
 $preloaded = Preloader::preload($classes);
+
+$classes = [];
+$classes[] = 'Symfony\\Component\\Routing\\Generator\\CompiledUrlGenerator';
+$classes[] = 'Symfony\\Bundle\\FrameworkBundle\\Routing\\RedirectableCompiledUrlMatcher';
+$preloaded = Preloader::preload($classes, $preloaded);
