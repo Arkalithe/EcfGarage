@@ -54,12 +54,12 @@ class AuthController extends AbstractController
         $issuedAt = new DateTimeImmutable();
         $expiresAt = $issuedAt->add(new DateInterval('PT1H'));
         $token = $config->builder()
-            ->issuedBy('http://localhost:8000')
+            ->issuedBy('http://127.0.0.1:8000')
             ->permittedFor('http://localhost:3636')
             ->issuedAt($issuedAt) 
             ->expiresAt($expiresAt)
             ->withClaim('mail', $employe->getMail())
-            ->withClaim('role', $employe->getRole())
+            ->withClaim('role', $employe->getRoles())
             ->getToken($config->signer(), $config->signingKey());
 
         return new JsonResponse(['token' => $token->toString()]);

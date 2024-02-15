@@ -5,11 +5,13 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\EmployeRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+
 
 #[ORM\Entity(repositoryClass: EmployeRepository::class)]
 #[ApiResource]
-class Employe
+class Employe implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -22,22 +24,14 @@ class Employe
     #[ORM\Column(length: 255)]
     private ?string $firstname = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $mail = null;
 
-    #[Assert\Regex(
-        pattern: '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
-        message: "Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial."
-    )]
-    #[Assert\Length(
-        min: 8,
-        minMessage: "Le mot de passe doit contenir au moins {{ limit }} caractères."
-    )]
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $role = null;
+    #[ORM\Column(type : 'json')]
+    private array $roles = [];
 
     public function getId(): ?int
     {
@@ -80,27 +74,48 @@ class Employe
         return $this;
     }
 
+ 
     public function getPassword(): ?string
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): static
+    public function setPassword(string $password): self
     {
-        $this->password = password_hash($password, PASSWORD_DEFAULT);
+        $this->password = $password;
 
         return $this;
     }
 
-    public function getRole(): ?string
+
+    public function getUserIdentifier(): string
     {
-        return $this->role;
+        return (string) $this->mail;
     }
 
-    public function setRole(string $role): static
+
+    public function getRoles(): array
     {
-        $this->role = $role;
+        $roles = $this->roles;        
+        $roles[] = 'Employe';
+
+        return array_unique($roles);
+    }
+
+ 
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }
+
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+
+
 }
