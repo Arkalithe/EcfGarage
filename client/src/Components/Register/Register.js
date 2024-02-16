@@ -21,7 +21,6 @@ const RegisterForm = () => {
                 roles: roles
             });
             console.log('Registration successful:', response.data);
-            // Faire quelque chose avec la réponse, comme rediriger l'utilisateur ou stocker le token JWT
         } catch (error) {
             console.error('Registration error:', error);
             setError('Erreur lors de l\'enregistrement');

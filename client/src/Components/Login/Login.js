@@ -10,9 +10,8 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/login', { mail, password });
+      const response = await axios.post('http://127.0.0.1:8000/api/login', { mail, password }, { withCredentials: true });
       console.log('Login successful:', response.data);
-      // Faire quelque chose avec la réponse, comme rediriger l'utilisateur ou stocker le token JWT
     } catch (error) {
       console.error('Login error:', error);
       setError('Identifiants invalides');
