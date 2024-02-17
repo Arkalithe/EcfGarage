@@ -23,33 +23,32 @@ class JwtAuthorizationListener
     {
         $this->config = Configuration::forSymmetricSigner(
             new Sha256(),
-            InMemory::plainText('your_secret_key_here')
+            InMemory::plainText('test')
         );
     }
 
     public function onKernelRequest(RequestEvent $event)
     {
-        $request = $event->getRequest();
+        $request = $event->getRequest(); 
         
-        // Check if the route is the one that requires JWT verification
         if ($request->attributes->get('_route') !== 'app_login') {
             return;
         }
-
-        // Get JWT token from request
-        $tokenString = $request->headers->get('Authorization');
+        
+        $tokenString = $request->cookies->get('jwt_token');
 
         if (!$tokenString) {
+            
             $event->setResponse(new JsonResponse(['message' => 'Token not provided'], JsonResponse::HTTP_UNAUTHORIZED));
             return;
         }
 
         try {
-
             $token = $this->config->parser()->parse($tokenString);
             $constraints = [new IssuedBy('http://127.0.0.1:8000'), new PermittedFor('http://localhost:3636')];
             $this->config->validator()->assert($token, ...$constraints);
         } catch (\Exception $e) {
+            
             $event->setResponse(new JsonResponse(['message' => 'Invalid token'], JsonResponse::HTTP_UNAUTHORIZED));
             return;
         }

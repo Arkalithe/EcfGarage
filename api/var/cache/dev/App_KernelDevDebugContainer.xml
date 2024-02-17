@@ -397,6 +397,14 @@
         <argument type="service" id=".service_locator.jUv.zyj.App\Controller\EmployeController"/>
       </call>
     </service>
+    <service id="App\Controller\HorairesController" class="App\Controller\HorairesController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.jUv.zyj.App\Controller\HorairesController"/>
+      </call>
+    </service>
     <service id="App\Controller\VoitureController" class="App\Controller\VoitureController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -456,7 +464,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.t4nsoFi"/>
+      <argument type="service" id=".service_locator.jg2wT04"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -1891,7 +1899,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.t4nsoFi"/>
+      <argument type="service" id=".service_locator.jg2wT04"/>
     </service>
     <service id="routing.resolver" class="Symfony\Component\Config\Loader\LoaderResolver">
       <call method="addLoader">
@@ -5459,6 +5467,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\EmployeController" class="App\Controller\EmployeController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\EmployeController" class="App\Controller\EmployeController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\EmployeController" class="App\Controller\EmployeController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\HorairesController" class="App\Controller\HorairesController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\HorairesController" class="App\Controller\HorairesController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\HorairesController" class="App\Controller\HorairesController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\VoitureController" class="App\Controller\VoitureController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\VoitureController" class="App\Controller\VoitureController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\VoitureController" class="App\Controller\VoitureController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -5897,11 +5908,13 @@
         <argument key="validator" type="service_closure" id="validator"/>
       </argument>
     </service>
-    <service id=".service_locator.t4nsoFi" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.jg2wT04" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\EmployeController::addEmploye" type="service_closure" id=".service_locator.ydp_pfj"/>
         <argument key="App\Controller\EmployeController::updateEmploye" type="service_closure" id=".service_locator..wxF_qM"/>
+        <argument key="App\Controller\HorairesController::addHoraire" type="service_closure" id=".service_locator..wxF_qM"/>
+        <argument key="App\Controller\HorairesController::updateHoraire" type="service_closure" id=".service_locator..wxF_qM"/>
         <argument key="App\Controller\VoitureController::addVoiture" type="service_closure" id=".service_locator..wxF_qM"/>
         <argument key="App\Controller\VoitureController::updateVoiture" type="service_closure" id=".service_locator..wxF_qM"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
@@ -5910,6 +5923,8 @@
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="App\Controller\EmployeController:addEmploye" type="service_closure" id=".service_locator.ydp_pfj"/>
         <argument key="App\Controller\EmployeController:updateEmploye" type="service_closure" id=".service_locator..wxF_qM"/>
+        <argument key="App\Controller\HorairesController:addHoraire" type="service_closure" id=".service_locator..wxF_qM"/>
+        <argument key="App\Controller\HorairesController:updateHoraire" type="service_closure" id=".service_locator..wxF_qM"/>
         <argument key="App\Controller\VoitureController:addVoiture" type="service_closure" id=".service_locator..wxF_qM"/>
         <argument key="App\Controller\VoitureController:updateVoiture" type="service_closure" id=".service_locator..wxF_qM"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
@@ -6171,6 +6186,12 @@
     <service id=".service_locator.jUv.zyj.App\Controller\EmployeController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\EmployeController"/>
       <argument>App\Controller\EmployeController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.jUv.zyj" method="withContext"/>
+    </service>
+    <service id=".service_locator.jUv.zyj.App\Controller\HorairesController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\HorairesController"/>
+      <argument>App\Controller\HorairesController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.jUv.zyj" method="withContext"/>
     </service>
@@ -7294,7 +7315,7 @@
     <service id="ApiPlatform\Symfony\Security\ResourceAccessCheckerInterface" alias="api_platform.security.resource_access_checker"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.bJ.4HC5" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.t4nsoFi"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.jg2wT04"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="api_platform.name_converter" alias="serializer.name_converter.metadata_aware"/>

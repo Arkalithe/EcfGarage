@@ -66,27 +66,35 @@ return [
                                 .')'
                             .')'
                         .')'
-                        .'|avis(?'
-                            .'|/([^/\\.]++)(?:\\.([^/]++))?(*:673)'
+                        .'|aviss(?'
+                            .'|/([^/\\.]++)(?:\\.([^/]++))?(*:674)'
                             .'|(?:\\.([^/]++))?(?'
-                                .'|(*:699)'
+                                .'|(*:700)'
                             .')'
                             .'|/([^/\\.]++)(?:\\.([^/]++))?(?'
-                                .'|(*:737)'
+                                .'|(*:738)'
                             .')'
                         .')'
                         .'|horaires(?'
-                            .'|/([^/\\.]++)(?:\\.([^/]++))?(*:784)'
+                            .'|/([^/\\.]++)(?:\\.([^/]++))?(*:785)'
                             .'|(?:\\.([^/]++))?(?'
-                                .'|(*:810)'
+                                .'|(*:811)'
                             .')'
-                            .'|/([^/\\.]++)(?:\\.([^/]++))?(?'
-                                .'|(*:848)'
+                            .'|/(?'
+                                .'|([^/\\.]++)(?:\\.([^/]++))?(?'
+                                    .'|(*:852)'
+                                .')'
+                                .'|all(*:864)'
+                                .'|([^/]++)(*:880)'
+                                .'|add(*:891)'
+                                .'|([^/]++)(?'
+                                    .'|(*:910)'
+                                .')'
                             .')'
                         .')'
                     .')'
                 .')'
-                .'|/_error/(\\d+)(?:\\.([^/]++))?(*:888)'
+                .'|/_error/(\\d+)(?:\\.([^/]++))?(*:951)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -140,27 +148,34 @@ return [
         ],
         600 => [[['_route' => 'add_caracteristique_to_voiture', '_controller' => 'App\\Controller\\VoitureController::addCaracteristiqueToVoiture'], ['voitureId', 'caracteristiqueId'], ['POST' => 0], null, false, true, null]],
         627 => [[['_route' => 'add_equipement_to_voiture', '_controller' => 'App\\Controller\\VoitureController::addEquipementToVoiture'], ['voitureId', 'equipementId'], ['POST' => 0], null, false, true, null]],
-        673 => [[['_route' => '_api_/avis/{id}{._format}_get', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Avis', '_api_operation_name' => '_api_/avis/{id}{._format}_get'], ['id', '_format'], ['GET' => 0], null, false, true, null]],
-        699 => [
-            [['_route' => '_api_/avis{._format}_get_collection', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Avis', '_api_operation_name' => '_api_/avis{._format}_get_collection'], ['_format'], ['GET' => 0], null, false, true, null],
-            [['_route' => '_api_/avis{._format}_post', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Avis', '_api_operation_name' => '_api_/avis{._format}_post'], ['_format'], ['POST' => 0], null, false, true, null],
+        674 => [[['_route' => '_api_/aviss/{id}{._format}_get', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Avis', '_api_operation_name' => '_api_/aviss/{id}{._format}_get'], ['id', '_format'], ['GET' => 0], null, false, true, null]],
+        700 => [
+            [['_route' => '_api_/aviss{._format}_get_collection', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Avis', '_api_operation_name' => '_api_/aviss{._format}_get_collection'], ['_format'], ['GET' => 0], null, false, true, null],
+            [['_route' => '_api_/aviss{._format}_post', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Avis', '_api_operation_name' => '_api_/aviss{._format}_post'], ['_format'], ['POST' => 0], null, false, true, null],
         ],
-        737 => [
-            [['_route' => '_api_/avis/{id}{._format}_put', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Avis', '_api_operation_name' => '_api_/avis/{id}{._format}_put'], ['id', '_format'], ['PUT' => 0], null, false, true, null],
-            [['_route' => '_api_/avis/{id}{._format}_patch', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Avis', '_api_operation_name' => '_api_/avis/{id}{._format}_patch'], ['id', '_format'], ['PATCH' => 0], null, false, true, null],
-            [['_route' => '_api_/avis/{id}{._format}_delete', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Avis', '_api_operation_name' => '_api_/avis/{id}{._format}_delete'], ['id', '_format'], ['DELETE' => 0], null, false, true, null],
+        738 => [
+            [['_route' => '_api_/aviss/{id}{._format}_put', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Avis', '_api_operation_name' => '_api_/aviss/{id}{._format}_put'], ['id', '_format'], ['PUT' => 0], null, false, true, null],
+            [['_route' => '_api_/aviss/{id}{._format}_patch', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Avis', '_api_operation_name' => '_api_/aviss/{id}{._format}_patch'], ['id', '_format'], ['PATCH' => 0], null, false, true, null],
+            [['_route' => '_api_/aviss/{id}{._format}_delete', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Avis', '_api_operation_name' => '_api_/aviss/{id}{._format}_delete'], ['id', '_format'], ['DELETE' => 0], null, false, true, null],
         ],
-        784 => [[['_route' => '_api_/horaires/{id}{._format}_get', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Horaire', '_api_operation_name' => '_api_/horaires/{id}{._format}_get'], ['id', '_format'], ['GET' => 0], null, false, true, null]],
-        810 => [
+        785 => [[['_route' => '_api_/horaires/{id}{._format}_get', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Horaire', '_api_operation_name' => '_api_/horaires/{id}{._format}_get'], ['id', '_format'], ['GET' => 0], null, false, true, null]],
+        811 => [
             [['_route' => '_api_/horaires{._format}_get_collection', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Horaire', '_api_operation_name' => '_api_/horaires{._format}_get_collection'], ['_format'], ['GET' => 0], null, false, true, null],
             [['_route' => '_api_/horaires{._format}_post', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Horaire', '_api_operation_name' => '_api_/horaires{._format}_post'], ['_format'], ['POST' => 0], null, false, true, null],
         ],
-        848 => [
+        852 => [
             [['_route' => '_api_/horaires/{id}{._format}_put', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Horaire', '_api_operation_name' => '_api_/horaires/{id}{._format}_put'], ['id', '_format'], ['PUT' => 0], null, false, true, null],
             [['_route' => '_api_/horaires/{id}{._format}_patch', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Horaire', '_api_operation_name' => '_api_/horaires/{id}{._format}_patch'], ['id', '_format'], ['PATCH' => 0], null, false, true, null],
             [['_route' => '_api_/horaires/{id}{._format}_delete', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Horaire', '_api_operation_name' => '_api_/horaires/{id}{._format}_delete'], ['id', '_format'], ['DELETE' => 0], null, false, true, null],
         ],
-        888 => [
+        864 => [[['_route' => 'get_all_horaires', '_controller' => 'App\\Controller\\HorairesController::getAllHoraires'], [], ['GET' => 0], null, false, false, null]],
+        880 => [[['_route' => 'get_horaire', '_controller' => 'App\\Controller\\HorairesController::getHoraire'], ['id'], ['GET' => 0], null, false, true, null]],
+        891 => [[['_route' => 'add_horaire', '_controller' => 'App\\Controller\\HorairesController::addHoraire'], [], ['POST' => 0], null, false, false, null]],
+        910 => [
+            [['_route' => 'update_horaire', '_controller' => 'App\\Controller\\HorairesController::updateHoraire'], ['id'], ['PUT' => 0], null, false, true, null],
+            [['_route' => 'delete_horaire', '_controller' => 'App\\Controller\\HorairesController::deleteHoraire'], ['id'], ['DELETE' => 0], null, false, true, null],
+        ],
+        951 => [
             [['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
