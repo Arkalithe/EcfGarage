@@ -5,21 +5,34 @@ import { Container } from 'react-bootstrap';
 
 const Horaire = () => {
 
-    const time = [
-        { jour: 'Lundi', matinOuverture: '08:00', matinFermeture: '12:00', apresMidiOuverture: '13:00', apresMidiFermeture: '18:00' },
-        { jour: 'Mardi', matinOuverture: '08:30', matinFermeture: '12:30', apresMidiOuverture: '13:30', apresMidiFermeture: '17:30' },
-        { jour: 'Mercredi', matinOuverture: '09:00', matinFermeture: '12:00', apresMidiOuverture: '14:00', apresMidiFermeture: '18:00' },
-        { jour: 'Jeudi', matinOuverture: '08:00', matinFermeture: '12:00', apresMidiOuverture: '13:00', apresMidiFermeture: '17:00' },
-        { jour: 'Vendredi', matinOuverture: '08:30', matinFermeture: '11:30', apresMidiOuverture: '13:30', apresMidiFermeture: '18:30' },
-        { jour: 'Samedi', matinOuverture: '09:00', matinFermeture: '12:00', apresMidiOuverture: '14:00', apresMidiFermeture: '17:00' },
-        { jour: 'Dimanche', matinOuverture: 'Fermé', matinFermeture: 'Fermé', apresMidiOuverture: 'Fermé', apresMidiFermeture: 'Fermé' }
-    ];   
+    const [horaires, setHoraires] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    console.log("Horaires dans Horaire :", time);
+    useEffect(() => {
+        const fetchHoraires = async () => {
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/api/horaires/');
+                setHoraires(response.data);
+                setLoading(false);
+            } catch (error) {
+                setError(error);
+                setLoading(false);
+            }
+        };
+
+        fetchHoraires();
+    }, []);
+
+    
+
+ 
+
+    console.log("Horaires dans Horaire :", horaires);
 
     return (        
         <Container>
-        <Footer time={time} loading={false} error={null} />
+        <Footer horaires={horaires} loading={loading} error={null} />
         </Container>
     )
 };
