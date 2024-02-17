@@ -8,7 +8,7 @@ const Header = () => {
 
     return (
         <>
-            {/* Barre de navigation pour les écrans de taille moyenne (et plus) */}
+            
             <Navbar bg="dark" variant="dark" expand="md" fixed='top' className="d-none d-md-block">
                 <Container>
                     <Navbar.Brand as={Link} to="/" style={{ marginRight: 'auto' }}>Mon Application</Navbar.Brand>
