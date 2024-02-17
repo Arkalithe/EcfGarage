@@ -5,7 +5,7 @@ const AuthRequire = ({role}) => {
     const { auth } = AuthUse();
     const location = useLocation();
 
-    if(!auth.setAuthToken) {
+    if(!auth.role) {
         return <Navigate to="/login" state={{from : location}} replace />
     }
     if (!role.includes(auth.role)) {
