@@ -200,7 +200,7 @@
     </parameter>
     <parameter key="nelmio_cors.defaults" type="collection">
       <parameter key="allow_origin">true</parameter>
-      <parameter key="allow_credentials">false</parameter>
+      <parameter key="allow_credentials">true</parameter>
       <parameter key="allow_headers" type="collection">
         <parameter>content-type</parameter>
         <parameter>authorization</parameter>

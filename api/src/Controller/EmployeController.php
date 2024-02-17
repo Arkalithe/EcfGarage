@@ -45,7 +45,6 @@ class EmployeController extends AbstractController
         return new JsonResponse(['employe' => $employe], JsonResponse::HTTP_OK);
     }
 
-
     #[Route('add', name: 'add_employe', methods: ['POST'])]
     public function addEmploye(Request $request, ValidatorInterface $validator, UserPasswordHasherInterface $passwordHasher): JsonResponse
     {

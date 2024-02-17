@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import AuthUse from '../Auth/AuthUse';
 
 const LoginForm = () => {
+  const { setAuthToken } = AuthUse();
   const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -11,6 +13,8 @@ const LoginForm = () => {
 
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/login', { mail, password }, { withCredentials: true });
+      const {token} = response.data;
+      setAuthToken(token);
       console.log('Login successful:', response.data);
     } catch (error) {
       console.error('Login error:', error);
