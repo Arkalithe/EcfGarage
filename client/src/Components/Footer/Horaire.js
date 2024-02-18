@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import Footer from './Footer'
 import { Container } from 'react-bootstrap';
+import "./Footer.css"
 
 const Horaire = () => {
 
@@ -31,8 +32,8 @@ const Horaire = () => {
     console.log("Horaires dans Horaire :", horaires);
 
     return (        
-        <Container>
-        <Footer horaires={horaires} loading={loading} error={null} />
+        <Container className="horaire">
+        <Footer horaires={horaires} loading={loading} error={error} />
         </Container>
     )
 };

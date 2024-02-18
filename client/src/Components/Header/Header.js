@@ -9,7 +9,7 @@ const Header = () => {
     return (
         <>
             
-            <Navbar bg="dark" variant="dark" expand="md" fixed='top' className="d-none d-md-block">
+            <Navbar bg="dark" variant="dark" expand="md" className="d-none d-md-block">
                 <Container>
                     <Navbar.Brand as={Link} to="/" style={{ marginRight: 'auto' }}>Mon Application</Navbar.Brand>
                     <Nav className="ml-auto">

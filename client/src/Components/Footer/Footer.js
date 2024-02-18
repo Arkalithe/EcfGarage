@@ -1,4 +1,5 @@
 import React from 'react';
+import "./Footer.css"
 
 const Footer = ({ horaires, loading, error }) => {
     console.log("Props in Footer:", { horaires, loading, error });
@@ -18,11 +19,11 @@ const Footer = ({ horaires, loading, error }) => {
     };
 
     return (
-        <div>
+        <>
             <ul className="list-unstyled">
                 {horaires["hydra:member"].map((horaire, index) => (
                     <li key={index}>
-                        <p className='text-info fs-4 mb-0'>
+                        <p className='text-info'>
                             Jour: {horaire.jourSemaine === 'Dimanche' ? 'Fermé' : horaire.jourSemaine + " |"}
                             {horaire.jourSemaine === 'Dimanche' ? '' : ` Matin: ${formatDate(horaire.ouvertureMatin)}-${formatDate(horaire.fermetureMatin)} 
                             | Après-midi: ${formatDate(horaire.ouvertureApresMidi)}-${formatDate(horaire.fermetureApresMidi)}`}
@@ -30,7 +31,7 @@ const Footer = ({ horaires, loading, error }) => {
                     </li>
                 ))}
             </ul>
-        </div>
+        </>
     );
 };
 

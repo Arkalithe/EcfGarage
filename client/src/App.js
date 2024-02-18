@@ -8,7 +8,6 @@ import RegisterForm from './Components/Register/Register';
 import Header from './Components/Header/Header';
 import AuthRequire from './Components/Auth/AuthRequire';
 import Layout from './Components/Layout/Layout';
-import Footer from './Components/Footer/Footer';
 import Horaire from './Components/Footer/Horaire';
 
 function App() {
@@ -19,7 +18,7 @@ function App() {
         <Header />
       </Container>
 
-      <Container className='content'>
+      <Container className='content d-flex justify-content-center align-items-center min-vh-80 text-center'>
         <Routes>
 
           <Route path='/' element={<Layout />}>
