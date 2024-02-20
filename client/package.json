@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.15.10",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -17,10 +20,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set HTTPS=true&&set SSL_CRT_FILE=C:/Windows/System32/example.com+5.pem&&set SSL_KEY_FILE=C:/Windows/System32/example.com+5-key.pem&&react-scripts start",
+    "startssl": "react-scripts start --ssl-cert=C:/Users/Arkobaleno/Downloads/localhost.pem",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject"   
+
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +44,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": {
+    "/api": {
+      "target": "http://localhost:8000",
+      "changeOrigin": true
+    }}
 }

@@ -1,47 +1,25 @@
-import React, { createContext, useState, useEffect } from 'react';
-import { jwtDecode } from 'jwt-decode';
+import React, { createContext, useState } from 'react';
+
 
 const AuthContext = createContext();
 
-const getRoleFromToken = (token) => {
-    if (token) {
-        const decodedToken = jwtDecode(token);
-        const currentTime = Date.now() / 1000;
-        if (decodedToken.exp && decodedToken.exp > currentTime) {
-            return decodedToken.role;
-        }
-    }
-    return null;
-};
-
 export const AuthProvider = ({ children }) => {
-    const [role, setRole] = useState(() => {
-        const initialToken = localStorage.getItem('authToken');
-        return getRoleFromToken(initialToken);
+    const [id, setId] = useState(() => {
+        return localStorage.getItem('authId');
     });
 
-    const setAuthToken = (newToken) => {
-        localStorage.setItem('authToken', newToken);
-        const newRole = getRoleFromToken(newToken);
-        setRole(newRole);
+    const setAuthId = (newId) => {
+        localStorage.setItem('authId', newId);
+        setId(newId);
     };
-
-    useEffect(() => {
-        if (!role) {
-            localStorage.removeItem("authToken")
-        }
-        console.log('Role actuel :', role);
-    }, [role]);
     
     const logout = () => {
-        localStorage.removeItem('authToken');
-        setAuthToken(null);
-        setRole(null)
+        localStorage.removeItem('authId');
+        setId(null);
     };
 
-    console.log('Token actuel :', role);
     return (
-        <AuthContext.Provider value={{ role, setAuthToken, logout }}>
+        <AuthContext.Provider value={{ id, setAuthId, logout }}>
             {children}
         </AuthContext.Provider>
     );

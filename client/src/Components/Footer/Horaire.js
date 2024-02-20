@@ -4,6 +4,7 @@ import Footer from './Footer'
 import { Container } from 'react-bootstrap';
 import "./Footer.css"
 
+
 const Horaire = () => {
 
     const [horaires, setHoraires] = useState([]);
@@ -13,7 +14,7 @@ const Horaire = () => {
     useEffect(() => {
         const fetchHoraires = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/horaires/');
+                const response = await axios.get('https://localhost:8000/api/horaires');
                 setHoraires(response.data);
                 setLoading(false);
             } catch (error) {
@@ -27,7 +28,13 @@ const Horaire = () => {
 
     
 
- 
+    if (loading) {
+        return <div>Loading...</div>;
+      }
+    
+      if (error) {
+        return <div>Error: {error.message}</div>;
+      }
 
     console.log("Horaires dans Horaire :", horaires);
 

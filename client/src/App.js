@@ -9,6 +9,7 @@ import Header from './Components/Header/Header';
 import AuthRequire from './Components/Auth/AuthRequire';
 import Layout from './Components/Layout/Layout';
 import Horaire from './Components/Footer/Horaire';
+import AdminSpace from './Components/AdminSpace/AdminSpace';
 
 function App() {
   return (
@@ -23,10 +24,12 @@ function App() {
 
           <Route path='/' element={<Layout />}>
             <Route path="/login" element={<LoginForm />} />
+            <Route path="/register" element={<RegisterForm />} />
           </Route  >
 
           <Route element={<AuthRequire role="Admin" />}>
-            <Route path="/register" element={<RegisterForm />} />
+            <Route path='/adminSpace' element={<AdminSpace />}/>
+            
           </Route>
 
         </Routes>
