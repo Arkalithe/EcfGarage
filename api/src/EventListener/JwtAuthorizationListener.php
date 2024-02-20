@@ -21,25 +21,29 @@ class JwtAuthorizationListener
     {
         $this->config = Configuration::forSymmetricSigner(
             new Sha256(),
-            InMemory::plainText('test')
+            InMemory::plainText('Test')
         );
     }
 
     public function onKernelRequest(RequestEvent $event)
     {
         $request = $event->getRequest(); 
+        $tokenString = $request->cookies->get('jwt_token');
+
         $path = $request->getPathInfo();
-        $excludedRoutes = ['/api/login', '/api/horaires', '/api/docs', '/api/employes', '/api/send-email'];
+        $excludedRoutes = ['/api/login', '/api/horaires', '/api/docs', '/api/send-email'];
         
         if (in_array($path, $excludedRoutes)) {
             return;
         }
         
-        $tokenString = $request->cookies->get('jwt_token');
+       
 
         if (!$tokenString) {
             
-            $event->setResponse(new JsonResponse(['message' => 'Token not provided'], JsonResponse::HTTP_UNAUTHORIZED));
+            $errorMessage = 'Token not provided';
+            $response = new JsonResponse(['message' => $errorMessage], JsonResponse::HTTP_UNAUTHORIZED);
+            return $response;
             return;
         }
 
@@ -50,19 +54,17 @@ class JwtAuthorizationListener
 
             if ($token instanceof \Lcobucci\JWT\Token\Plain) {
                 $role = $token->claims()->get('role');
-                $userIdFromToken = $token->claims()->get('id');
-                $requestUserId = $request->query->get('id'); 
-
-                if ($userIdFromToken === $requestUserId) {
-                    $request->attributes->set('user_role', $role);
+                $request->attributes->set('user_role', $role);
                 } else {
-                    throw new \RuntimeException('User ID does not match the one provided in the request');
-                }
-            } else {
-                throw new \RuntimeException('Invalid token type');
+                    $errorMessage = 'Invalid token type';
+                    $response = new JsonResponse(['error' => $errorMessage], JsonResponse::HTTP_UNAUTHORIZED);
+                    throw new \RuntimeException($errorMessage);
             }
         } catch (\Exception $e) {
             $event->setResponse(new JsonResponse(['message' => 'Invalid token'], JsonResponse::HTTP_UNAUTHORIZED));
+            $response = new JsonResponse();
+            $response->headers->clearCookie('jwt_token');
+            $response->setContent('<script>window.localStorage.removeItem("authId"); window.localStorage.removeItem("authRole");</script>');
             return;
         }
     }

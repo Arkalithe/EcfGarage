@@ -134,6 +134,17 @@ class CaracteristiqueFixtures extends Fixture
                 $manager->persist($employe);
             }
 
+            $employe = new Employe();
+            $employe->setLastname("momo");
+            $employe->setFirstname("momo");
+            $employe->setMail("momo@momo.momo");
+            $employe->setRoles("Admin");
+            $plainPassword = 'Momomo0*' . $i;
+            $hashedPassword = $this->passwordEncoder->hashPassword($employe, $plainPassword);
+            $employe->setPassword($hashedPassword);
+
+
+            $manager->persist($employe);
             $manager->flush();
         }
     }

@@ -48,7 +48,6 @@ class AuthController extends AbstractController
             InMemory::plainText('Test')
         );
 
-        // Création du token JWT
         $issuedAt = new DateTimeImmutable();
         $expiresAt = $issuedAt->add(new DateInterval('PT1H'));
         $token = $config->builder()
