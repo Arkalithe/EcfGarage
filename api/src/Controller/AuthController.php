@@ -71,7 +71,8 @@ class AuthController extends AbstractController
 
 
         $responseData = [            
-            'id' => $employe->getId()
+            'id' => $employe->getId(),
+            'role' => $employe->getRoles()
         ];
 
         $response = new JsonResponse($responseData);

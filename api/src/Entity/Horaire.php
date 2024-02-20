@@ -5,9 +5,11 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\HoraireRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: HoraireRepository::class)]
 #[ApiResource]
+#[UniqueEntity(fields: ['jour_semaine'], message: 'Ce jour de la semaine est déjà utilisé.')]
 class Horaire
 {
     #[ORM\Id]
@@ -15,7 +17,7 @@ class Horaire
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $jour_semaine = null;
 
     #[ORM\Column(type: "time")]
