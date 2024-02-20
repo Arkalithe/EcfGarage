@@ -52,8 +52,8 @@ class AuthController extends AbstractController
         $issuedAt = new DateTimeImmutable();
         $expiresAt = $issuedAt->add(new DateInterval('PT1H'));
         $token = $config->builder()
-            ->issuedBy('http://127.0.0.1:8000')
-            ->permittedFor('http://localhost:3636')
+            ->issuedBy('https://127.0.0.1:8000')
+            ->permittedFor('https://localhost:3000')
             ->issuedAt($issuedAt)
             ->expiresAt($expiresAt)
             ->withClaim('mail', $employe->getMail())
@@ -61,12 +61,20 @@ class AuthController extends AbstractController
             ->withClaim('role', $employe->getRoles())
             ->getToken($config->signer(), $config->signingKey());
 
+
         $cookie = Cookie::create('jwt_token', $token->toString())
             ->withHttpOnly(true)
             ->withExpires($expiresAt)
-            ->withPath('/');
+            ->withPath('/')
+            ->withSameSite('none')
+            ->withSecure(true);
 
-        $response = new JsonResponse(['token' => $token->toString()]);
+
+        $responseData = [            
+            'id' => $employe->getId()
+        ];
+
+        $response = new JsonResponse($responseData);
         $response->headers->setCookie($cookie);
 
         return $response;

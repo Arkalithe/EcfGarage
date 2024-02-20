@@ -199,7 +199,9 @@
       </parameter>
     </parameter>
     <parameter key="nelmio_cors.defaults" type="collection">
-      <parameter key="allow_origin">true</parameter>
+      <parameter key="allow_origin" type="collection">
+        <parameter>https://localhost:3000</parameter>
+      </parameter>
       <parameter key="allow_credentials">true</parameter>
       <parameter key="allow_headers" type="collection">
         <parameter>content-type</parameter>
@@ -242,6 +244,10 @@
     </parameter>
     <parameter key="api_platform.formats" type="collection">
       <parameter key="jsonld" type="collection">
+        <parameter>application/ld+json</parameter>
+      </parameter>
+      <parameter key="json" type="collection">
+        <parameter>application/json</parameter>
         <parameter>application/ld+json</parameter>
       </parameter>
     </parameter>
@@ -376,7 +382,6 @@
       <tag name="controller.service_arguments"/>
       <tag name="routing.route_loader"/>
     </service>
-    <service id="App\EventListener\JwtAuthorizationListener" class="App\EventListener\JwtAuthorizationListener" autowire="true" autoconfigure="true"/>
     <service id="App\Entity" class="App\Entity" abstract="true">
       <tag name="container.excluded" source="in &quot;config/services.yaml&quot;"/>
     </service>
@@ -389,29 +394,14 @@
         <argument type="service" id=".service_locator.jUv.zyj.App\Controller\AuthController"/>
       </call>
     </service>
-    <service id="App\Controller\EmployeController" class="App\Controller\EmployeController" public="true" autowire="true" autoconfigure="true">
-      <tag name="controller.service_arguments"/>
-      <tag name="container.service_subscriber"/>
-      <argument type="service" id="doctrine.orm.default_entity_manager"/>
-      <call method="setContainer">
-        <argument type="service" id=".service_locator.jUv.zyj.App\Controller\EmployeController"/>
-      </call>
+    <service id="App\EventListener\JwtAuthorizationListener" class="App\EventListener\JwtAuthorizationListener" autowire="true" autoconfigure="true">
+      <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>
+      <tag name="container.hot_path"/>
     </service>
-    <service id="App\Controller\HorairesController" class="App\Controller\HorairesController" public="true" autowire="true" autoconfigure="true">
-      <tag name="controller.service_arguments"/>
-      <tag name="container.service_subscriber"/>
-      <argument type="service" id="doctrine.orm.default_entity_manager"/>
-      <call method="setContainer">
-        <argument type="service" id=".service_locator.jUv.zyj.App\Controller\HorairesController"/>
-      </call>
-    </service>
-    <service id="App\Controller\VoitureController" class="App\Controller\VoitureController" public="true" autowire="true" autoconfigure="true">
-      <tag name="controller.service_arguments"/>
-      <tag name="container.service_subscriber"/>
-      <argument type="service" id="doctrine.orm.default_entity_manager"/>
-      <call method="setContainer">
-        <argument type="service" id=".service_locator.jUv.zyj.App\Controller\VoitureController"/>
-      </call>
+    <service id="App\EventListener\PasswordHashListener" class="App\EventListener\PasswordHashListener" autowire="true" autoconfigure="true">
+      <tag name="doctrine.orm.entity_listener" entity="App\Entity\Employe" event="prePersist"/>
+      <tag name="doctrine.orm.entity_listener" entity="App\Entity\Employe" event="preUpdate"/>
+      <argument type="service" id="security.user_password_hasher"/>
     </service>
     <service id="App\Repository\AvisRepository" class="App\Repository\AvisRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
@@ -464,7 +454,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.jg2wT04"/>
+      <argument type="service" id=".service_locator.L.EDYUC"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -1414,6 +1404,14 @@
       <argument type="service" id="logger" on-invalid="null"/>
       <argument type="service" id="request_stack" on-invalid="null"/>
       <call method="addListener">
+        <argument>kernel.request</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="App\EventListener\JwtAuthorizationListener"/>
+          <argument>onKernelRequest</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
         <argument>Symfony\Component\Security\Http\Event\CheckPassportEvent</argument>
         <argument type="collection">
           <argument type="service_closure" id="security.listener.user_provider"/>
@@ -1899,7 +1897,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.jg2wT04"/>
+      <argument type="service" id=".service_locator.L.EDYUC"/>
     </service>
     <service id="routing.resolver" class="Symfony\Component\Config\Loader\LoaderResolver">
       <call method="addLoader">
@@ -4223,11 +4221,29 @@
     <service id="cache.doctrine.orm.default.query" class="Symfony\Component\Cache\Adapter\ArrayAdapter">
       <tag name="cache.pool"/>
     </service>
-    <service id="doctrine.orm.default_entity_listener_resolver" class="Doctrine\Bundle\DoctrineBundle\Mapping\ContainerEntityListenerResolver">
-      <argument type="service" id="service_container"/>
+    <service id="doctrine.orm.default_entity_listener_resolver" class="Doctrine\Bundle\DoctrineBundle\Mapping\ContainerEntityListenerResolver" public="true">
+      <argument type="service" id=".service_locator.w8ltPgD"/>
+      <call method="registerService">
+        <argument>App\EventListener\PasswordHashListener</argument>
+        <argument>App\EventListener\PasswordHashListener</argument>
+      </call>
+      <call method="registerService">
+        <argument>App\EventListener\PasswordHashListener</argument>
+        <argument>App\EventListener\PasswordHashListener</argument>
+      </call>
     </service>
     <service id="doctrine.orm.default_listeners.attach_entity_listeners" class="Doctrine\ORM\Tools\AttachEntityListenersListener">
       <tag name="doctrine.event_listener" event="loadClassMetadata"/>
+      <call method="addEntityListener">
+        <argument>App\Entity\Employe</argument>
+        <argument>App\EventListener\PasswordHashListener</argument>
+        <argument>prePersist</argument>
+      </call>
+      <call method="addEntityListener">
+        <argument>App\Entity\Employe</argument>
+        <argument>App\EventListener\PasswordHashListener</argument>
+        <argument>preUpdate</argument>
+      </call>
     </service>
     <service id="doctrine.orm.default_manager_configurator" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator">
       <argument type="collection"/>
@@ -5464,15 +5480,6 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\AuthController" class="App\Controller\AuthController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\AuthController" class="App\Controller\AuthController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\AuthController" class="App\Controller\AuthController" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\EmployeController" class="App\Controller\EmployeController" autowire="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\EmployeController" class="App\Controller\EmployeController" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Controller\EmployeController" class="App\Controller\EmployeController" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\HorairesController" class="App\Controller\HorairesController" autowire="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\HorairesController" class="App\Controller\HorairesController" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Controller\HorairesController" class="App\Controller\HorairesController" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\VoitureController" class="App\Controller\VoitureController" autowire="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\VoitureController" class="App\Controller\VoitureController" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Controller\VoitureController" class="App\Controller\VoitureController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\AvisRepository" class="App\Repository\AvisRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\AvisRepository" class="App\Repository\AvisRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CaracteristiqueRepository" class="App\Repository\CaracteristiqueRepository" autowire="true" abstract="true"/>
@@ -5894,39 +5901,13 @@
         <argument key="loader" type="service_closure" id=".errored..service_locator.y4_Zrx..Symfony\Component\Config\Loader\LoaderInterface"/>
       </argument>
     </service>
-    <service id=".service_locator.ydp_pfj" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.L.EDYUC" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="passwordHasher" type="service_closure" id="security.user_password_hasher"/>
-        <argument key="validator" type="service_closure" id="validator"/>
-      </argument>
-    </service>
-    <service id=".service_locator..wxF_qM" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="serializer" type="service_closure" id="serializer"/>
-        <argument key="validator" type="service_closure" id="validator"/>
-      </argument>
-    </service>
-    <service id=".service_locator.jg2wT04" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="App\Controller\EmployeController::addEmploye" type="service_closure" id=".service_locator.ydp_pfj"/>
-        <argument key="App\Controller\EmployeController::updateEmploye" type="service_closure" id=".service_locator..wxF_qM"/>
-        <argument key="App\Controller\HorairesController::addHoraire" type="service_closure" id=".service_locator..wxF_qM"/>
-        <argument key="App\Controller\HorairesController::updateHoraire" type="service_closure" id=".service_locator..wxF_qM"/>
-        <argument key="App\Controller\VoitureController::addVoiture" type="service_closure" id=".service_locator..wxF_qM"/>
-        <argument key="App\Controller\VoitureController::updateVoiture" type="service_closure" id=".service_locator..wxF_qM"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="App\Kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="kernel::loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
-        <argument key="App\Controller\EmployeController:addEmploye" type="service_closure" id=".service_locator.ydp_pfj"/>
-        <argument key="App\Controller\EmployeController:updateEmploye" type="service_closure" id=".service_locator..wxF_qM"/>
-        <argument key="App\Controller\HorairesController:addHoraire" type="service_closure" id=".service_locator..wxF_qM"/>
-        <argument key="App\Controller\HorairesController:updateHoraire" type="service_closure" id=".service_locator..wxF_qM"/>
-        <argument key="App\Controller\VoitureController:addVoiture" type="service_closure" id=".service_locator..wxF_qM"/>
-        <argument key="App\Controller\VoitureController:updateVoiture" type="service_closure" id=".service_locator..wxF_qM"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
       </argument>
@@ -6043,6 +6024,12 @@
         <argument key="doctrine.orm.listeners.doctrine_token_provider_schema_listener" type="service_closure" id="doctrine.orm.listeners.doctrine_token_provider_schema_listener"/>
         <argument key="doctrine.orm.listeners.lock_store_schema_listener" type="service_closure" id="doctrine.orm.listeners.lock_store_schema_listener"/>
         <argument key="doctrine.orm.listeners.pdo_session_handler_schema_listener" type="service_closure" id="doctrine.orm.listeners.pdo_session_handler_schema_listener"/>
+      </argument>
+    </service>
+    <service id=".service_locator.w8ltPgD" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="App\EventListener\PasswordHashListener" type="service_closure" id="App\EventListener\PasswordHashListener"/>
       </argument>
     </service>
     <service id=".service_locator.tDafg7q" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -6180,24 +6167,6 @@
     <service id=".service_locator.jUv.zyj.App\Controller\AuthController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\AuthController"/>
       <argument>App\Controller\AuthController</argument>
-      <argument type="service" id="service_container"/>
-      <factory service=".service_locator.jUv.zyj" method="withContext"/>
-    </service>
-    <service id=".service_locator.jUv.zyj.App\Controller\EmployeController" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="App\Controller\EmployeController"/>
-      <argument>App\Controller\EmployeController</argument>
-      <argument type="service" id="service_container"/>
-      <factory service=".service_locator.jUv.zyj" method="withContext"/>
-    </service>
-    <service id=".service_locator.jUv.zyj.App\Controller\HorairesController" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="App\Controller\HorairesController"/>
-      <argument>App\Controller\HorairesController</argument>
-      <argument type="service" id="service_container"/>
-      <factory service=".service_locator.jUv.zyj" method="withContext"/>
-    </service>
-    <service id=".service_locator.jUv.zyj.App\Controller\VoitureController" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="App\Controller\VoitureController"/>
-      <argument>App\Controller\VoitureController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.jUv.zyj" method="withContext"/>
     </service>
@@ -7315,7 +7284,7 @@
     <service id="ApiPlatform\Symfony\Security\ResourceAccessCheckerInterface" alias="api_platform.security.resource_access_checker"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.bJ.4HC5" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.jg2wT04"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.L.EDYUC"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="api_platform.name_converter" alias="serializer.name_converter.metadata_aware"/>
@@ -7387,8 +7356,6 @@
     <service id="api_platform.metadata.resource.metadata_collection_factory.cached.inner" alias="api_platform.doctrine.orm.metadata.resource.metadata_collection_factory"/>
     <service id=".service_locator.Xbsa8iG" alias="api_platform.filter_locator"/>
     <service id=".service_locator.gFlme_s" alias=".service_locator.y4_Zrx."/>
-    <service id=".service_locator.PhW0tcD" alias=".service_locator.ydp_pfj"/>
-    <service id=".service_locator.Gn.KPa0" alias=".service_locator..wxF_qM"/>
     <service id=".service_locator.YMNZ5uT" alias=".service_locator.jUv.zyj"/>
   </services>
 </container>

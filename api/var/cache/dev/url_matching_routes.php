@@ -27,74 +27,46 @@ return [
                                 .'|(?:\\.([^/]++))?(?'
                                     .'|(*:247)'
                                 .')'
-                                .'|/(?'
-                                    .'|([^/\\.]++)(?:\\.([^/]++))?(?'
-                                        .'|(*:288)'
-                                    .')'
-                                    .'|all(*:300)'
-                                    .'|([^/]++)(*:316)'
-                                    .'|add(*:327)'
-                                    .'|([^/]++)(?'
-                                        .'|(*:346)'
-                                    .')'
+                                .'|/([^/\\.]++)(?:\\.([^/]++))?(?'
+                                    .'|(*:285)'
                                 .')'
                             .')'
                         .')'
                         .'|v(?'
                             .'|alidation_errors/([^/]++)(?'
-                                .'|(*:390)'
+                                .'|(*:328)'
                             .')'
                             .'|oitures(?'
-                                .'|/([^/\\.]++)(?:\\.([^/]++))?(*:435)'
+                                .'|/([^/\\.]++)(?:\\.([^/]++))?(*:373)'
                                 .'|(?:\\.([^/]++))?(?'
-                                    .'|(*:461)'
+                                    .'|(*:399)'
                                 .')'
-                                .'|/(?'
-                                    .'|([^/\\.]++)(?:\\.([^/]++))?(?'
-                                        .'|(*:502)'
-                                    .')'
-                                    .'|all(*:514)'
-                                    .'|([^/]++)(*:530)'
-                                    .'|add(*:541)'
-                                    .'|([^/]++)(?'
-                                        .'|(*:560)'
-                                        .'|/add_(?'
-                                            .'|caracteristique/([^/]++)(*:600)'
-                                            .'|equipement/([^/]++)(*:627)'
-                                        .')'
-                                    .')'
+                                .'|/([^/\\.]++)(?:\\.([^/]++))?(?'
+                                    .'|(*:437)'
                                 .')'
                             .')'
                         .')'
                         .'|aviss(?'
-                            .'|/([^/\\.]++)(?:\\.([^/]++))?(*:674)'
+                            .'|/([^/\\.]++)(?:\\.([^/]++))?(*:482)'
                             .'|(?:\\.([^/]++))?(?'
-                                .'|(*:700)'
+                                .'|(*:508)'
                             .')'
                             .'|/([^/\\.]++)(?:\\.([^/]++))?(?'
-                                .'|(*:738)'
+                                .'|(*:546)'
                             .')'
                         .')'
                         .'|horaires(?'
-                            .'|/([^/\\.]++)(?:\\.([^/]++))?(*:785)'
+                            .'|/([^/\\.]++)(?:\\.([^/]++))?(*:593)'
                             .'|(?:\\.([^/]++))?(?'
-                                .'|(*:811)'
+                                .'|(*:619)'
                             .')'
-                            .'|/(?'
-                                .'|([^/\\.]++)(?:\\.([^/]++))?(?'
-                                    .'|(*:852)'
-                                .')'
-                                .'|all(*:864)'
-                                .'|([^/]++)(*:880)'
-                                .'|add(*:891)'
-                                .'|([^/]++)(?'
-                                    .'|(*:910)'
-                                .')'
+                            .'|/([^/\\.]++)(?:\\.([^/]++))?(?'
+                                .'|(*:657)'
                             .')'
                         .')'
                     .')'
                 .')'
-                .'|/_error/(\\d+)(?:\\.([^/]++))?(*:951)'
+                .'|/_error/(\\d+)(?:\\.([^/]++))?(*:697)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -112,70 +84,47 @@ return [
             [['_route' => '_api_/employes{._format}_get_collection', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Employe', '_api_operation_name' => '_api_/employes{._format}_get_collection'], ['_format'], ['GET' => 0], null, false, true, null],
             [['_route' => '_api_/employes{._format}_post', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Employe', '_api_operation_name' => '_api_/employes{._format}_post'], ['_format'], ['POST' => 0], null, false, true, null],
         ],
-        288 => [
+        285 => [
             [['_route' => '_api_/employes/{id}{._format}_put', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Employe', '_api_operation_name' => '_api_/employes/{id}{._format}_put'], ['id', '_format'], ['PUT' => 0], null, false, true, null],
             [['_route' => '_api_/employes/{id}{._format}_patch', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Employe', '_api_operation_name' => '_api_/employes/{id}{._format}_patch'], ['id', '_format'], ['PATCH' => 0], null, false, true, null],
             [['_route' => '_api_/employes/{id}{._format}_delete', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Employe', '_api_operation_name' => '_api_/employes/{id}{._format}_delete'], ['id', '_format'], ['DELETE' => 0], null, false, true, null],
         ],
-        300 => [[['_route' => 'get_all_employes', '_controller' => 'App\\Controller\\EmployeController::getAllEmployes'], [], ['GET' => 0], null, false, false, null]],
-        316 => [[['_route' => 'get_employe', '_controller' => 'App\\Controller\\EmployeController::getEmploye'], ['id'], ['GET' => 0], null, false, true, null]],
-        327 => [[['_route' => 'add_employe', '_controller' => 'App\\Controller\\EmployeController::addEmploye'], [], ['POST' => 0], null, false, false, null]],
-        346 => [
-            [['_route' => 'update_employe', '_controller' => 'App\\Controller\\EmployeController::updateEmploye'], ['id'], ['PUT' => 0], null, false, true, null],
-            [['_route' => 'delete_employe', '_controller' => 'App\\Controller\\EmployeController::deleteEmploye'], ['id'], ['DELETE' => 0], null, false, true, null],
-        ],
-        390 => [
+        328 => [
             [['_route' => '_api_validation_errors_problem', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'ApiPlatform\\Symfony\\Validator\\Exception\\ValidationException', '_api_operation_name' => '_api_validation_errors_problem'], ['id'], ['GET' => 0], null, false, true, null],
             [['_route' => '_api_validation_errors_hydra', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'ApiPlatform\\Symfony\\Validator\\Exception\\ValidationException', '_api_operation_name' => '_api_validation_errors_hydra'], ['id'], ['GET' => 0], null, false, true, null],
             [['_route' => '_api_validation_errors_jsonapi', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'ApiPlatform\\Symfony\\Validator\\Exception\\ValidationException', '_api_operation_name' => '_api_validation_errors_jsonapi'], ['id'], ['GET' => 0], null, false, true, null],
         ],
-        435 => [[['_route' => '_api_/voitures/{id}{._format}_get', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Voiture', '_api_operation_name' => '_api_/voitures/{id}{._format}_get'], ['id', '_format'], ['GET' => 0], null, false, true, null]],
-        461 => [
+        373 => [[['_route' => '_api_/voitures/{id}{._format}_get', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Voiture', '_api_operation_name' => '_api_/voitures/{id}{._format}_get'], ['id', '_format'], ['GET' => 0], null, false, true, null]],
+        399 => [
             [['_route' => '_api_/voitures{._format}_get_collection', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Voiture', '_api_operation_name' => '_api_/voitures{._format}_get_collection'], ['_format'], ['GET' => 0], null, false, true, null],
             [['_route' => '_api_/voitures{._format}_post', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Voiture', '_api_operation_name' => '_api_/voitures{._format}_post'], ['_format'], ['POST' => 0], null, false, true, null],
         ],
-        502 => [
+        437 => [
             [['_route' => '_api_/voitures/{id}{._format}_put', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Voiture', '_api_operation_name' => '_api_/voitures/{id}{._format}_put'], ['id', '_format'], ['PUT' => 0], null, false, true, null],
             [['_route' => '_api_/voitures/{id}{._format}_patch', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Voiture', '_api_operation_name' => '_api_/voitures/{id}{._format}_patch'], ['id', '_format'], ['PATCH' => 0], null, false, true, null],
             [['_route' => '_api_/voitures/{id}{._format}_delete', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Voiture', '_api_operation_name' => '_api_/voitures/{id}{._format}_delete'], ['id', '_format'], ['DELETE' => 0], null, false, true, null],
         ],
-        514 => [[['_route' => 'get_all_voitures', '_controller' => 'App\\Controller\\VoitureController::getAllVoitures'], [], ['GET' => 0], null, false, false, null]],
-        530 => [[['_route' => 'get_voiture', '_controller' => 'App\\Controller\\VoitureController::getVoiture'], ['id'], ['GET' => 0], null, false, true, null]],
-        541 => [[['_route' => 'add_voiture', '_controller' => 'App\\Controller\\VoitureController::addVoiture'], [], ['POST' => 0], null, false, false, null]],
-        560 => [
-            [['_route' => 'update_voiture', '_controller' => 'App\\Controller\\VoitureController::updateVoiture'], ['id'], ['PUT' => 0], null, false, true, null],
-            [['_route' => 'delete_voiture', '_controller' => 'App\\Controller\\VoitureController::deleteVoiture'], ['id'], ['DELETE' => 0], null, false, true, null],
-        ],
-        600 => [[['_route' => 'add_caracteristique_to_voiture', '_controller' => 'App\\Controller\\VoitureController::addCaracteristiqueToVoiture'], ['voitureId', 'caracteristiqueId'], ['POST' => 0], null, false, true, null]],
-        627 => [[['_route' => 'add_equipement_to_voiture', '_controller' => 'App\\Controller\\VoitureController::addEquipementToVoiture'], ['voitureId', 'equipementId'], ['POST' => 0], null, false, true, null]],
-        674 => [[['_route' => '_api_/aviss/{id}{._format}_get', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Avis', '_api_operation_name' => '_api_/aviss/{id}{._format}_get'], ['id', '_format'], ['GET' => 0], null, false, true, null]],
-        700 => [
+        482 => [[['_route' => '_api_/aviss/{id}{._format}_get', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Avis', '_api_operation_name' => '_api_/aviss/{id}{._format}_get'], ['id', '_format'], ['GET' => 0], null, false, true, null]],
+        508 => [
             [['_route' => '_api_/aviss{._format}_get_collection', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Avis', '_api_operation_name' => '_api_/aviss{._format}_get_collection'], ['_format'], ['GET' => 0], null, false, true, null],
             [['_route' => '_api_/aviss{._format}_post', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Avis', '_api_operation_name' => '_api_/aviss{._format}_post'], ['_format'], ['POST' => 0], null, false, true, null],
         ],
-        738 => [
+        546 => [
             [['_route' => '_api_/aviss/{id}{._format}_put', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Avis', '_api_operation_name' => '_api_/aviss/{id}{._format}_put'], ['id', '_format'], ['PUT' => 0], null, false, true, null],
             [['_route' => '_api_/aviss/{id}{._format}_patch', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Avis', '_api_operation_name' => '_api_/aviss/{id}{._format}_patch'], ['id', '_format'], ['PATCH' => 0], null, false, true, null],
             [['_route' => '_api_/aviss/{id}{._format}_delete', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Avis', '_api_operation_name' => '_api_/aviss/{id}{._format}_delete'], ['id', '_format'], ['DELETE' => 0], null, false, true, null],
         ],
-        785 => [[['_route' => '_api_/horaires/{id}{._format}_get', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Horaire', '_api_operation_name' => '_api_/horaires/{id}{._format}_get'], ['id', '_format'], ['GET' => 0], null, false, true, null]],
-        811 => [
+        593 => [[['_route' => '_api_/horaires/{id}{._format}_get', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Horaire', '_api_operation_name' => '_api_/horaires/{id}{._format}_get'], ['id', '_format'], ['GET' => 0], null, false, true, null]],
+        619 => [
             [['_route' => '_api_/horaires{._format}_get_collection', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Horaire', '_api_operation_name' => '_api_/horaires{._format}_get_collection'], ['_format'], ['GET' => 0], null, false, true, null],
             [['_route' => '_api_/horaires{._format}_post', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Horaire', '_api_operation_name' => '_api_/horaires{._format}_post'], ['_format'], ['POST' => 0], null, false, true, null],
         ],
-        852 => [
+        657 => [
             [['_route' => '_api_/horaires/{id}{._format}_put', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Horaire', '_api_operation_name' => '_api_/horaires/{id}{._format}_put'], ['id', '_format'], ['PUT' => 0], null, false, true, null],
             [['_route' => '_api_/horaires/{id}{._format}_patch', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Horaire', '_api_operation_name' => '_api_/horaires/{id}{._format}_patch'], ['id', '_format'], ['PATCH' => 0], null, false, true, null],
             [['_route' => '_api_/horaires/{id}{._format}_delete', '_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Horaire', '_api_operation_name' => '_api_/horaires/{id}{._format}_delete'], ['id', '_format'], ['DELETE' => 0], null, false, true, null],
         ],
-        864 => [[['_route' => 'get_all_horaires', '_controller' => 'App\\Controller\\HorairesController::getAllHoraires'], [], ['GET' => 0], null, false, false, null]],
-        880 => [[['_route' => 'get_horaire', '_controller' => 'App\\Controller\\HorairesController::getHoraire'], ['id'], ['GET' => 0], null, false, true, null]],
-        891 => [[['_route' => 'add_horaire', '_controller' => 'App\\Controller\\HorairesController::addHoraire'], [], ['POST' => 0], null, false, false, null]],
-        910 => [
-            [['_route' => 'update_horaire', '_controller' => 'App\\Controller\\HorairesController::updateHoraire'], ['id'], ['PUT' => 0], null, false, true, null],
-            [['_route' => 'delete_horaire', '_controller' => 'App\\Controller\\HorairesController::deleteHoraire'], ['id'], ['DELETE' => 0], null, false, true, null],
-        ],
-        951 => [
+        697 => [
             [['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

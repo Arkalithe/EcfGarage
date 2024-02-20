@@ -3,10 +3,15 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Delete;
 use App\Repository\EmployeRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+
 
 
 #[ORM\Entity(repositoryClass: EmployeRepository::class)]
@@ -30,8 +35,9 @@ class Employe implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
-    #[ORM\Column(type : 'json')]
-    private array $roles = [];
+    #[ORM\Column(length: 255)]
+    private string $roles = '';
+ 
 
     public function getId(): ?int
     {
@@ -83,8 +89,7 @@ class Employe implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
-
-        return $this;
+           return $this;
     }
 
 
@@ -95,18 +100,15 @@ class Employe implements UserInterface, PasswordAuthenticatedUserInterface
 
 
     public function getRoles(): array
+
     {
-        $roles = $this->roles;        
-        $roles[] = 'Employe';
-
-        return array_unique($roles);
+        return [$this->roles];
     }
-
- 
-    public function setRoles(array $roles): self
+    
+    public function setRoles(string $roles): self
     {
         $this->roles = $roles;
-
+    
         return $this;
     }
 
