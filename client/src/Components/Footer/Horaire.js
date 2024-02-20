@@ -36,7 +36,7 @@ const Horaire = () => {
         return <div>Error: {error.message}</div>;
       }
 
-    console.log("Horaires dans Horaire :", horaires);
+
 
     return (        
         <Container className="horaire">

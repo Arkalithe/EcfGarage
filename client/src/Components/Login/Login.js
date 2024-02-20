@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import AuthUse from '../Auth/AuthUse';
 import { Form, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 
 const LoginForm = () => {
-  const { setAuthId } = AuthUse();
+  const { setAuthId, setAuthRole } = AuthUse();
   const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,11 +20,14 @@ const LoginForm = () => {
         { mail, password },
         { withCredentials: true }
       );
-      const { id } = response.data;
+      const { id, role } = response.data;
       setAuthId(id);
-      console.log('Login successful:', response.data);
+      setAuthRole(role);
+      navigate("/home")
+      window.location.reload()   
+      
     } catch (error) {
-      console.error('Login error:', error);
+
       setError('Identifiants invalides');
     }
   };

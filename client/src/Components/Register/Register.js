@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Form, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
     const [mail, setMail] = useState('');
@@ -9,6 +10,7 @@ const RegisterForm = () => {
     const [firstname, setFirstname] = useState('');
     const [roles, setRoles] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,6 +24,7 @@ const RegisterForm = () => {
                 roles
             }
             );
+            navigate("/")
             console.log('Inscription réussie:', response.data);
         } catch (error) {
             console.error('Erreur lors de l\'inscription:', error);

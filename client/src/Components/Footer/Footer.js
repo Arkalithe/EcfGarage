@@ -2,11 +2,11 @@ import React from 'react';
 import "./Footer.css"
 
 const Footer = ({ horaires, loading, error }) => {
-    console.log("Props in Footer:", { horaires, loading, error });
+
     if (loading) {
         return <div>Chargement en cours...</div>;
     }
-    console.log("Horaires dans Footer :", horaires);
+
     if (error) {
         return <div>Une erreur s'est produite: {error}</div>;
     }

@@ -10,6 +10,10 @@ import AuthRequire from './Components/Auth/AuthRequire';
 import Layout from './Components/Layout/Layout';
 import Horaire from './Components/Footer/Horaire';
 import AdminSpace from './Components/AdminSpace/AdminSpace';
+import UnauthorizedPage from './Components/Layout/UnauthorizedPage';
+import HoraireUpdate from './Components/Horaires/HorairesUpdate';
+import Home from './Components/Layout/Home';
+import ContactPage from './Components/Contact/Contact';
 
 function App() {
   return (
@@ -23,13 +27,17 @@ function App() {
         <Routes>
 
           <Route path='/' element={<Layout />}>
+          <Route path='/home' element={<Home />} />
+          <Route path='/contact' element={<ContactPage />} />
+            <Route path="/unauthorized" element={<UnauthorizedPage />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<RegisterForm />} />
           </Route  >
 
           <Route element={<AuthRequire role="Admin" />}>
-            <Route path='/adminSpace' element={<AdminSpace />}/>
-            
+            <Route path='/admin' element={<AdminSpace />} />
+            <Route path='/horaires' element={<HoraireUpdate />} />
+
           </Route>
 
         </Routes>

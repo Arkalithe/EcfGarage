@@ -18,8 +18,8 @@ const Header = () => {
                         <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
                         {role ? (
                             <>
-                                {role === 'employé' && <Nav.Link as={Link} to="/employee">Espace Employé</Nav.Link>}
-                                {role === 'admin' && <Nav.Link as={Link} to="/admin">Espace Admin</Nav.Link>}
+                                {role === 'Employé' && <Nav.Link as={Link} to="/employee">Espace Employé</Nav.Link>}
+                                {role === 'Admin' && <Nav.Link as={Link} to="/admin">Espace Admin</Nav.Link>}
                                 <Nav.Link onClick={logout}>Logout</Nav.Link>
                             </>
                         ) : (
