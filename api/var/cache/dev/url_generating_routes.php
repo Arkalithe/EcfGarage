@@ -39,5 +39,7 @@ return [
     '_api_/voitures/{id}{._format}_delete' => [['id', '_format'], ['_controller' => 'api_platform.symfony.main_controller', '_format' => null, '_stateless' => true, '_api_resource_class' => 'App\\Entity\\Voiture', '_api_operation_name' => '_api_/voitures/{id}{._format}_delete'], [], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', '[^/\\.]++', 'id', true], ['text', '/api/voitures']], [], [], []],
     '_preview_error' => [['code', '_format'], ['_controller' => 'error_controller::preview', '_format' => 'html'], ['code' => '\\d+'], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', '\\d+', 'code', true], ['text', '/_error']], [], [], []],
     'app_login' => [[], ['_controller' => 'App\\Controller\\AuthController::login'], [], [['text', '/api/login']], [], [], []],
+    'end_email' => [[], ['_controller' => 'App\\Controller\\MailerController::sendEmail'], [], [['text', '/api/send-email']], [], [], []],
     'App\Controller\AuthController::login' => [[], ['_controller' => 'App\\Controller\\AuthController::login'], [], [['text', '/api/login']], [], [], []],
+    'App\Controller\MailerController::sendEmail' => [[], ['_controller' => 'App\\Controller\\MailerController::sendEmail'], [], [['text', '/api/send-email']], [], [], []],
 ];

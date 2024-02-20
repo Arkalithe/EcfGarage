@@ -52,7 +52,7 @@ class AuthController extends AbstractController
         $issuedAt = new DateTimeImmutable();
         $expiresAt = $issuedAt->add(new DateInterval('PT1H'));
         $token = $config->builder()
-            ->issuedBy('https://127.0.0.1:8000')
+            ->issuedBy('https://localhost:8000')
             ->permittedFor('https://localhost:3000')
             ->issuedAt($issuedAt)
             ->expiresAt($expiresAt)

@@ -29,7 +29,7 @@ class JwtAuthorizationListener
     {
         $request = $event->getRequest(); 
         $path = $request->getPathInfo();
-        $excludedRoutes = ['/api/login', '/api/horaires', '/api/docs', '/api/employes', '/api/employes/add'];
+        $excludedRoutes = ['/api/login', '/api/horaires', '/api/docs', '/api/employes', '/api/send-email'];
         
         if (in_array($path, $excludedRoutes)) {
             return;
@@ -45,7 +45,7 @@ class JwtAuthorizationListener
 
         try {
             $token = $this->config->parser()->parse($tokenString);
-            $constraints = [new IssuedBy('https://127.0.0.1:8000'), new PermittedFor('https://localhost:3000')];
+            $constraints = [new IssuedBy('https://localhost:8000'), new PermittedFor('https://localhost:3000')];
             $this->config->validator()->assert($token, ...$constraints);
 
             if ($token instanceof \Lcobucci\JWT\Token\Plain) {

@@ -91,6 +91,7 @@ class ComposerStaticInitcc36381cf988e96a2fad6e78af5dc804
             'Psr\\Cache\\' => 10,
             'PhpParser\\' => 10,
             'PHPStan\\PhpDocParser\\' => 21,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'N' => 
         array (
@@ -371,6 +372,10 @@ class ComposerStaticInitcc36381cf988e96a2fad6e78af5dc804
         'PHPStan\\PhpDocParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'Nelmio\\CorsBundle\\' => 
         array (

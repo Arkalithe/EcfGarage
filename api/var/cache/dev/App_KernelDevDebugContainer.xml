@@ -387,6 +387,11 @@
       <tag name="controller.service_arguments"/>
       <tag name="routing.route_loader"/>
     </service>
+    <service id="phpmailer" class="PHPMailer\PHPMailer\PHPMailer" autowire="true" autoconfigure="true"/>
+    <service id="App\Mailer\MyMailer" class="App\Mailer\MyMailer" autowire="true" autoconfigure="true">
+      <argument type="service" id="PHPMailer\PHPMailer\PHPMailer"/>
+    </service>
+    <service id="PHPMailer\PHPMailer\PHPMailer" class="PHPMailer\PHPMailer\PHPMailer" autowire="true" autoconfigure="true"/>
     <service id="App\Entity" class="App\Entity" abstract="true">
       <tag name="container.excluded" source="in &quot;config/services.yaml&quot;"/>
     </service>
@@ -399,8 +404,17 @@
         <argument type="service" id=".service_locator.jUv.zyj.App\Controller\AuthController"/>
       </call>
     </service>
-    <service id="App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true">
+    <service id="App\Controller\MailerController" class="App\Controller\MailerController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <argument type="service" id="App\Mailer\MyMailer"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.jUv.zyj.App\Controller\MailerController"/>
+      </call>
+    </service>
+    <service id="App\DataFixtures\CaracteristiqueFixtures" class="App\DataFixtures\CaracteristiqueFixtures" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
+      <argument type="service" id="security.user_password_hasher"/>
     </service>
     <service id="App\EventListener\JwtAuthorizationListener" class="App\EventListener\JwtAuthorizationListener" autowire="true" autoconfigure="true">
       <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>
@@ -410,6 +424,9 @@
       <tag name="doctrine.orm.entity_listener" entity="App\Entity\Employe" event="prePersist"/>
       <tag name="doctrine.orm.entity_listener" entity="App\Entity\Employe" event="preUpdate"/>
       <argument type="service" id="security.user_password_hasher"/>
+    </service>
+    <service id="App\Mailer\Mailer" class="App\Mailer\Mailer" autowire="true" autoconfigure="true">
+      <tag name="container.error" message="The autoloader expected class &quot;App\Mailer\Mailer&quot; to be defined in file &quot;C:\xampp\htdocs\EcfStudi\api\vendor\composer/../../src\Mailer\Mailer.php&quot;. The file was found but the class was not in it, the class name or namespace probably has a typo."/>
     </service>
     <service id="App\Repository\AvisRepository" class="App\Repository\AvisRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
@@ -5502,7 +5519,7 @@
       <call method="addFixtures">
         <argument type="collection">
           <argument type="collection">
-            <argument key="fixture" type="service" id="App\DataFixtures\AppFixtures"/>
+            <argument key="fixture" type="service" id="App\DataFixtures\CaracteristiqueFixtures"/>
             <argument key="groups" type="collection"/>
           </argument>
         </argument>
@@ -5514,8 +5531,11 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\AuthController" class="App\Controller\AuthController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\AuthController" class="App\Controller\AuthController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\AuthController" class="App\Controller\AuthController" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\MailerController" class="App\Controller\MailerController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\MailerController" class="App\Controller\MailerController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\MailerController" class="App\Controller\MailerController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\CaracteristiqueFixtures" class="App\DataFixtures\CaracteristiqueFixtures" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\DataFixtures\CaracteristiqueFixtures" class="App\DataFixtures\CaracteristiqueFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\AvisRepository" class="App\Repository\AvisRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\AvisRepository" class="App\Repository\AvisRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CaracteristiqueRepository" class="App\Repository\CaracteristiqueRepository" autowire="true" abstract="true"/>
@@ -6203,6 +6223,12 @@
     <service id=".service_locator.jUv.zyj.App\Controller\AuthController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\AuthController"/>
       <argument>App\Controller\AuthController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.jUv.zyj" method="withContext"/>
+    </service>
+    <service id=".service_locator.jUv.zyj.App\Controller\MailerController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\MailerController"/>
+      <argument>App\Controller\MailerController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.jUv.zyj" method="withContext"/>
     </service>
