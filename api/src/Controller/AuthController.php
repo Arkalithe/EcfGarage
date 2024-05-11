@@ -69,12 +69,29 @@ class AuthController extends AbstractController
             ->withSecure(true);
 
 
-        $responseData = [            
+        $responseData = [
             'id' => $employe->getId(),
             'role' => $employe->getRoles()
         ];
 
         $response = new JsonResponse($responseData);
+        $response->headers->setCookie($cookie);
+
+        return $response;
+    }
+
+    #[Route('/api/logout', name: 'app_logout', methods: ['POST'])]
+    public function logout(): JsonResponse
+    {
+        $response = new JsonResponse(['message' => 'Deconnexion Reussie']);
+       
+        $cookie = Cookie::create('jwt_token', '')
+            ->withHttpOnly(true)
+            ->withExpires(new \DateTimeImmutable('-1 hour')) 
+            ->withPath('/')
+            ->withSameSite('none')
+            ->withSecure(true);
+
         $response->headers->setCookie($cookie);
 
         return $response;

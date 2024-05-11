@@ -29,7 +29,6 @@ class JwtAuthorizationListener
     {
         $request = $event->getRequest(); 
         $tokenString = $request->cookies->get('jwt_token');
-
         $path = $request->getPathInfo();
         $excludedRoutes = ['/api/login', '/api/horaires', '/api/docs', '/api/send-email'];
         
@@ -40,10 +39,7 @@ class JwtAuthorizationListener
        
 
         if (!$tokenString) {
-            
-            $errorMessage = 'Token not provided';
-            $response = new JsonResponse(['message' => $errorMessage], JsonResponse::HTTP_UNAUTHORIZED);
-            return $response;
+            $event->setResponse(new JsonResponse(['message' => 'Token not provided'], JsonResponse::HTTP_UNAUTHORIZED));
             return;
         }
 
@@ -55,10 +51,8 @@ class JwtAuthorizationListener
             if ($token instanceof \Lcobucci\JWT\Token\Plain) {
                 $role = $token->claims()->get('role');
                 $request->attributes->set('user_role', $role);
-                } else {
-                    $errorMessage = 'Invalid token type';
-                    $response = new JsonResponse(['error' => $errorMessage], JsonResponse::HTTP_UNAUTHORIZED);
-                    throw new \RuntimeException($errorMessage);
+                } else {                    
+                    throw new \RuntimeException('Invalid token type');
             }
         } catch (\Exception $e) {
             $event->setResponse(new JsonResponse(['message' => 'Invalid token'], JsonResponse::HTTP_UNAUTHORIZED));
