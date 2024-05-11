@@ -24,6 +24,9 @@ class Avis
     #[ORM\Column]
     private ?int $rating = null;
 
+    #[ORM\Column]
+    private ?int $moderate = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -61,6 +64,18 @@ class Avis
     public function setRating(int $rating): static
     {
         $this->rating = $rating;
+
+        return $this;
+    }
+
+    public function getModerate(): ?int
+    {
+        return $this->moderate;
+    }
+
+    public function setModerate(int $moderate): static
+    {
+        $this->moderate = $moderate;
 
         return $this;
     }

@@ -68,6 +68,7 @@ class CaracteristiqueFixtures extends Fixture
             $avis->setNom($faker->name);
             $avis->setMessage($faker->sentence);
             $avis->setRating(mt_rand(0, 5));
+            $avis->setModerate(mt_rand(0,1));
             $manager->persist($avis);
         }
 

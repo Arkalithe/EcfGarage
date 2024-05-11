@@ -15,21 +15,27 @@ class PasswordHashListener
 
     public function prePersist(Employe $employe): void
     {
-        $this->hashPassword($employe);
+        $this->hashPasswordIfNeeded($employe);
     }
 
     public function preUpdate(Employe $employe): void
     {
-        $this->hashPassword($employe);
+        if ($employe->isPasswordChanged()) {
+            $this->hashPasswordIfNeeded($employe);
+        }
+        $this->hashPasswordIfNeeded($employe);
     }
 
-    private function hashPassword(Employe $employe): void
+    private function hashPasswordIfNeeded(Employe $employe): void
     {
-        if (!$employe->getPassword()) {
-            return;
-        }
+        if ($employe->getPassword()) {
+            try {
 
-        $hashedPassword = $this->passwordEncoder->hashPassword($employe, $employe->getPassword());
-        $employe->setPassword($hashedPassword);
+                $hashedPassword = $this->passwordEncoder->hashPassword($employe, $employe->getPassword());
+                $employe->setPassword($hashedPassword);
+            } catch (\Exception $e) {
+
+            }
+        }
     }
 }

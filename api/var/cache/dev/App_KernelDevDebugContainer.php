@@ -16,7 +16,7 @@ if (!\class_exists(App_KernelDevDebugContainer::class, false)) {
 
 return new \ContainerX3bvIXb\App_KernelDevDebugContainer([
     'container.build_hash' => 'X3bvIXb',
-    'container.build_id' => '4e88419d',
-    'container.build_time' => 1708453289,
+    'container.build_id' => 'c4683140',
+    'container.build_time' => 1708456011,
     'container.runtime_mode' => \in_array(\PHP_SAPI, ['cli', 'phpdbg', 'embed'], true) ? 'web=0' : 'web=1',
 ], __DIR__.\DIRECTORY_SEPARATOR.'ContainerX3bvIXb');
