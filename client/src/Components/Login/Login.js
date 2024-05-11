@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import AuthUse from '../Auth/AuthUse';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -10,16 +10,20 @@ const LoginForm = () => {
   const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setLoading(true);
 
-    try {
+    try {      
       const response = await axios.post('https://localhost:8000/api/login',
         { mail, password },
         { withCredentials: true }
       );
+
       const { id, role } = response.data;
       setAuthId(id);
       setAuthRole(role);
@@ -27,8 +31,13 @@ const LoginForm = () => {
       window.location.reload()   
       
     } catch (error) {
-
-      setError('Identifiants invalides');
+      if (error.response && error.response.status === 401) {
+        setError('Identifiants invalides');
+      } else {
+        setError('Erreur de service. Veuillez réessayer plus tard.');
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -58,7 +67,7 @@ const LoginForm = () => {
           />
         </Form.Group>
         <Button variant="primary" type="submit">
-          Login
+        {loading ? <Spinner animation="border" size="sm" /> : 'Login'}
         </Button>
       </Form>
     </div>
