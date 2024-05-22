@@ -35,7 +35,7 @@ class Employe implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private string $roles = '';
- 
+
 
     public function getId(): ?int
     {
@@ -78,7 +78,7 @@ class Employe implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
- 
+
     public function getPassword(): ?string
     {
         return $this->password;
@@ -87,7 +87,7 @@ class Employe implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
-           return $this;
+        return $this;
     }
 
     public function getPlainPassword(): ?string
@@ -101,6 +101,11 @@ class Employe implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function isPasswordChanged(): bool
+    {
+        return $this->plainPassword !== null;
+    }
+
     public function getUserIdentifier(): string
     {
         return (string) $this->mail;
@@ -112,19 +117,16 @@ class Employe implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return [$this->roles];
     }
-    
+
     public function setRoles(string $roles): self
     {
         $this->roles = $roles;
-    
+
         return $this;
     }
 
     public function eraseCredentials(): void
     {
-     $this->plainPassword = null;
+        $this->plainPassword = null;
     }
-
-
-
 }

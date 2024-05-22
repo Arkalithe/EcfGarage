@@ -17,7 +17,7 @@ class JwtAuthorizationListener
 {
     private Configuration $config;
 
-    public function __construct()
+    public function __construct()   
     {
         $this->config = Configuration::forSymmetricSigner(
             new Sha256(),

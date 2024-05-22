@@ -36,6 +36,8 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
     App\EventListener\PasswordHashListener:
+        arguments:
+            $passwordEncoder: '@sercurity.password_hasher'
         tags:
-            - { name: doctrine.orm.entity_listener, entity: App\Entity\Employe, event: prePersist }
-            - { name: doctrine.orm.entity_listener, entity: App\Entity\Employe, event: preUpdate }
+            - { name: doctrine.event.entity_listener, entity: App\Entity\Employe, event: prePersist }
+            - { name: doctrine.event.entity_listener, entity: App\Entity\Employe, event: preUpdate }
